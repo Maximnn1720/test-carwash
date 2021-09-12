@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:form="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<style>
+    input[type="button"]:not(.default), input[type="submit"]:not(.default) {
+        -webkit-border-radius: 3px;
+        -webkit-background-clip: padding-box;
+        -moz-border-radius: 3px;
+        -moz-background-clip: padding;
+        border-radius: 3px;
+        background-clip: padding-box;
+        -webkit-transition: color 0.2s ease, border 0.2s ease, background 0.2s ease, -webkit-box-shadow 0.2s ease;
+        -moz-transition: color 0.2s ease, border 0.2s ease, background 0.2s ease, -moz-box-shadow 0.2s ease;
+        -o-transition: color 0.2s ease, border 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        transition: color 0.2s ease, border 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+        margin: 0 7px;
+        display: inline-block;
+        min-width: 144px;
+        max-width: 100%;
+        padding: 15px 25px;
+        font-family: "Arial", "Helvetica Neue", Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        line-height: 1;
+        border-width: 1px;
+        border-style: solid;
+        background-color: steelblue;
+        color: #ddd;
+    }
+
+    .form {
+        zoom: 1;
+        display: block;
+        width: auto;
+        padding: 25px 0 0;
+    }
+
+    .form:before,
+    .form:after {
+        content: "";
+        display: table;
+    }
+
+    .form:after {
+        clear: both;
+    }
+
+    .form .form-group {
+        zoom: 1;
+        position: relative;
+        margin-bottom: 25px;
+    }
+
+    .form .form-group:before,
+    .form .form-group:after {
+        content: "";
+        display: table;
+    }
+
+    .form .form-group:after {
+        clear: both;
+    }
+
+    .form .form-group:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    .form .form-group[class*="col-"] input[type=text],
+    .form .form-group[class*="col-"] input[type=email],
+    .form .form-group[class*="col-"] input[type=password],
+    .form .form-group[class*="col-"] input[type=checkbox] {
+        display: inline-block;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .form .form-control {
+        -webkit-border-radius: 0;
+        -webkit-background-clip: padding-box;
+        -moz-border-radius: 0;
+        -moz-background-clip: padding;
+        border-radius: 0;
+        background-clip: padding-box;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        height: auto;
+        font-size: 17px;
+        font-weight: 300;
+        background-color: #ffffff;
+        border-style: solid;
+        border-width: 1px 1px 1px 3px;
+        border-top-color: #d7d7d7;
+        border-right-color: #d7d7d7;
+        border-bottom-color: #d7d7d7;
+    }
+
+    .form .form-checkbox {
+        -webkit-border-radius: 0;
+        -webkit-background-clip: padding-box;
+        -moz-border-radius: 0;
+        -moz-background-clip: padding;
+        border-radius: 0;
+        background-clip: padding-box;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        height: auto;
+        font-size: 17px;
+        font-weight: 300;
+        background-color: #ffffff;
+        border-style: solid;
+        border-width: 1px 1px 1px 3px;
+        border-color: transparent;
+    }
+
+    input[type=text],
+    input[type=email],
+    input[type=password] {
+        -webkit-transition: color 0.2s ease, background 0.3s ease;
+        -moz-transition: color 0.2s ease, background 0.3s ease;
+        -o-transition: color 0.2s ease, background 0.3s ease;
+        transition: color 0.2s ease, background 0.3s ease;
+        -webkit-border-radius: 0;
+        -webkit-background-clip: padding-box;
+        -moz-border-radius: 0;
+        -moz-background-clip: padding;
+        border-radius: 0;
+        background-clip: padding-box;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        margin: 0;
+        vertical-align: top;
+        display: inline-block;
+        width: 100%;
+        font-size: 17px;
+        color: #8d8d8d;
+        background-color: #ffffff;
+        border-style: solid;
+        border-width: 1px 1px 1px 3px;
+        border-top-color: #d7d7d7;
+        border-right-color: #d7d7d7;
+        border-bottom-color: #d7d7d7;
+        outline: none;
+    }
+
+    input[type=text]:hover,
+    input[type=email]:hover,
+    input[type=password]:hover {
+        color: #000000;
+    }
+
+    input[type=text]:focus,
+    input[type=email]:focus,
+    input[type=password]:focus {
+        outline: none;
+        border-left-color: steelblue;
+    }
+
+    .well h3 {
+        text-shadow: -1px -1px #FFF, -2px -2px #FFF, -1px 1px #FFF, -2px 2px #FFF, 1px 1px #FFF, 2px 2px #FFF, 1px -1px #FFF, 2px -2px #FFF, -3px -3px 2px #BBB, -3px 3px 2px #BBB, 3px 3px 2px #BBB, 3px -3px 2px #BBB;
+        color: steelblue;
+        transition: all 1s;
+    }
+
+    .form-checkbox:focus {
+
+        border-color: transparent !important;
+        box-shadow: 0 1px 1px transparent inset, 0 0 8px transparent !important;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Authorization!</title>
+    <title>Spring Boot Thymeleaf - Bootstrap WebJars</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-md-offset-3 well">
+            <h3 class="text-center">Заказы</h3>
+            <form method="post" class="form" th:object="${modelOrderAttributes}">
+                <div class="btn-group btn-group-toggle col-md-12 row d-flex justify-content-center" data-toggle="buttons">
+                    <div class="col-md-1"></div>
+                    <label class="btn btn-secondary col-md-2"
+                           th:classappend="${#lists.contains(modelOrderAttributes.ordersTime, '09:00')} ? disabled : '' ">
+                        <input type="radio"
+                               name="options1"
+                               id="option1"
+                               autocomplete="off"
+                               value="9:00"
+                               th:field="${modelOrderAttributes.time}"> 9:00
+                    </label>
+                    <label class="btn btn-secondary col-md-2"
+                           th:classappend="${#lists.contains(modelOrderAttributes.ordersTime, '10:00')} ? disabled : '' ">
+                        <input type="radio"
+                               name="options2"
+                               id="option2"
+                               autocomplete="off"
+                               value="10:00"
+                               th:field="${modelOrderAttributes.time}"> 10:00
+                    </label>
+                    <label class="btn btn-secondary col-md-2"
+                           th:classappend="${#lists.contains(modelOrderAttributes.ordersTime, '11:00')} ? disabled : '' ">
+                        <input type="radio"
+                               name="options3"
+                               id="option3"
+                               autocomplete="off"
+                               value="11:00"
+                               th:field="${modelOrderAttributes.time}"> 11:00
+                    </label>
+                    <label class="btn btn-secondary col-md-2"
+                           th:classappend="${#lists.contains(modelOrderAttributes.ordersTime, '12:00')} ? disabled : '' ">
+                        <input type="radio"
+                               name="options4"
+                               id="option4"
+                               autocomplete="off"
+                               value="12:00"
+                               th:field="${modelOrderAttributes.time}"> 12:00
+                    </label>
+                    <label class="btn btn-secondary col-md-2"
+                           th:classappend="${#lists.contains(modelOrderAttributes.ordersTime, '13:00')} ? disabled : '' ">
+                        <input type="radio"
+                               name="options5"
+                               id="option5"
+                               autocomplete="off"
+                               value="13:00"
+                               th:field="${modelOrderAttributes.time}"> 13:00
+                    </label>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <label class="btn btn-secondary col-md-2"
+                           th:classappend="${#lists.contains(modelOrderAttributes.ordersTime, '14:00')} ? disabled : '' ">
+                        <input type="radio"
+                               name="options6"
+                               id="option6"
+                               autocomplete="off"
+                               value="14:00"
+                               th:field="${modelOrderAttributes.time}"> 14:00
+                    </label>
+                    <label class="btn btn-secondary col-md-2"
+                           th:classappend="${#lists.contains(modelOrderAttributes.ordersTime, '15:00')} ? disabled : '' ">
+                        <input type="radio"
+                               name="options7"
+                               id="option7"
+                               autocomplete="off"
+                               value="15:00"
+                               th:field="${modelOrderAttributes.time}"> 15:00
+                    </label>
+                    <label class="btn btn-secondary col-md-2"
+                           th:classappend="${#lists.contains(modelOrderAttributes.ordersTime, '16:00')} ? disabled : '' ">
+                        <input type="radio"
+                               name="options8"
+                               id="option8"
+                               autocomplete="off"
+                               value="16:00"
+                               th:field="${modelOrderAttributes.time}"> 16:00
+                    </label>
+                    <label class="btn btn-secondary col-md-2"
+                           th:classappend="${#lists.contains(modelOrderAttributes.ordersTime, '17:00')} ? disabled : '' ">
+                        <input type="radio"
+                               name="options9"
+                               id="option9"
+                               autocomplete="off"
+                               value="17:00"
+                               th:field="${modelOrderAttributes.time}"> 17:00
+                    </label>
+                    <label class="btn btn-secondary col-md-2"
+                           th:classappend="${#lists.contains(modelOrderAttributes.ordersTime, '18:00')} ? disabled : '' ">
+                        <input type="radio"
+                               name="options10"
+                               id="option10"
+                               autocomplete="off"
+                               value="18:00"
+                               th:field="${modelOrderAttributes.time}"> 18:00
+                    </label>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="form-group col-md-6  d-flex justify-content-center">
+                        <input type="submit" name="timeExecute" class="btn btn-default" value="Выбрать время"/>
+                    </div>
+                    <div class="form-group col-md-6  d-flex justify-content-center">
+                        <input type="button" name="exit" onclick="window.location.href = '/logout';" class="btn btn-default" value="Выход"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+
+</body>
+</html>
