@@ -33,7 +33,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/registration").permitAll()
+                .antMatchers("/", "/registration", "/v2/api-docs", "/swagger-resources/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER")
                 .anyRequest().authenticated()
@@ -50,12 +50,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/");
     }
-
+    private static final String[] AUTH_WHITELIST = {
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**",
+            "/css/**",
+            "/fonts/**",
+            "/images/**"
+    };
     @Override
     public void configure(WebSecurity web) throws Exception {
-
         web.ignoring().antMatchers("/resources/**", "/static/**", "/webjars/**");
-        web.ignoring().antMatchers("/resources/**", "/static/**", "/webjars/**");
+        web.ignoring().antMatchers(AUTH_WHITELIST);
     }
 
     @Override

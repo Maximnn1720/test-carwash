@@ -1,6 +1,5 @@
 package com.aisa.itservice.testcarwash.Entites;
 
-import org.hibernate.annotations.GeneratorType;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -31,6 +30,22 @@ public class User {
     @Column(name = "is_admin")
     private Boolean admin;
 
+    @Column(name = "time_registration")
+    private Date timeRegistration;
+
+    public User(UserDto userDTO) {
+        id = 0;
+        name = userDTO.getName();
+        email = userDTO.getEmail();
+        password = userDTO.getPassword();
+        admin = userDTO.getAdmin();
+        timeRegistration = new Date();
+    }
+
+    public User() {
+
+    }
+
     public Boolean getAdmin() {
         return admin;
     }
@@ -38,9 +53,6 @@ public class User {
     public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
-
-    @Column(name = "time_registration")
-    private Date timeRegistration;
 
     public String getCopyPassword() {
         return copyPassword;

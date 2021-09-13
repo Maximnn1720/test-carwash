@@ -1,6 +1,7 @@
 package com.aisa.itservice.testcarwash.Services;
 
 
+import com.aisa.itservice.testcarwash.Exceptions.UserAlreadyExistException;
 import com.aisa.itservice.testcarwash.Repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -42,9 +43,12 @@ public class CustomUserDetailService implements UserDetailsService, IUserService
     }
 
     @Override
-    public com.aisa.itservice.testcarwash.Entites.User registerNewUser(com.aisa.itservice.testcarwash.Entites.User user) {
+    public com.aisa.itservice.testcarwash.Entites.User registerNewUser(com.aisa.itservice.testcarwash.Entites.User user) throws UserAlreadyExistException {
+        if (emailExist(user.getEmail())) {
+            throw new UserAlreadyExistException("There is an account with that email address: "
+                    + user.getEmail());
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setTimeRegistration(new Date());
         userRepository.save(user);
         return user;
     }
@@ -56,5 +60,10 @@ public class CustomUserDetailService implements UserDetailsService, IUserService
             throw new UsernameNotFoundException(email);
         }
         return customer;
+    }
+
+    @Override
+    public boolean emailExist(String email) {
+        return userRepository.getUserByEmail(email) != null;
     }
 }
